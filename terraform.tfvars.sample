@@ -1,0 +1,12 @@
+gcp_credentials = 
+gcp_project_id = 
+gcp_region = 
+app_instance_parameters = {
+  name         = 
+  machine_type = 
+  zone         = 
+  image        = 
+  network      = 
+  ssh_user = 
+  public_ssh_key_file_path = 
+}
