@@ -9,4 +9,8 @@ app_instance_parameters = {
   network      = 
   ssh_user = 
   public_ssh_key_file_path = 
+  private_ssh_key_file_path = 
+  connection_type = 
+  connection_user = 
+  tags = 
 }

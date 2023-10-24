@@ -23,5 +23,9 @@ variable "app_instance_parameters" {
     network      = string # Network for the network interface
     ssh_user = string # SSH username for connecting to the instance
     public_ssh_key_file_path = string # Path to the ssh public key on the local machine
+    private_ssh_key_file_path = string # Path to the ssh private key on the local machine
+    connection_type = string # Type of connection
+    connection_user = string # User for remote access
+    tags = list(string) # Tags for the instance
   })
 }
