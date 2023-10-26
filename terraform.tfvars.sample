@@ -1,7 +1,7 @@
 gcp_credentials = 
 gcp_project_id = 
 gcp_region = 
-app_instance_parameters = {
+instance_parameters = {
   name         = 
   machine_type = 
   zone         = 
@@ -13,4 +13,31 @@ app_instance_parameters = {
   connection_type = 
   connection_user = 
   tags = 
+}
+instance_group_parameters = {
+  name = 
+  description = 
+  zone = 
+  named_port_name = 
+  named_port = 
+}
+app_firewall_parameters = {
+  name          = 
+  direction     = 
+  network       = 
+  priority      = 
+  source_ranges = 
+  target_tags   = 
+  allow_ports = 
+  allow_protocol = 
+}
+health_check_firewall_parameters = {
+  name          = 
+  direction     = 
+  network       = 
+  priority      = 
+  source_ranges = 
+  target_tags   = 
+  allow_ports = 
+  allow_protocol = 
 }
