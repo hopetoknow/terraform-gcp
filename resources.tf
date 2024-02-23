@@ -80,3 +80,60 @@ resource "google_compute_firewall" "health_check" {
     protocol = var.health_check_firewall_parameters.allow_protocol
   }
 }
+
+resource "google_compute_global_address" "lb" {
+  name       = var.global_address_parameters.name
+  ip_version = var.global_address_parameters.ip_version
+}
+
+resource "google_compute_health_check" "lb" {
+  name               = var.health_check_parameters.name
+  check_interval_sec = var.health_check_parameters.check_interval_sec
+  healthy_threshold  = var.health_check_parameters.healthy_threshold
+
+  http_health_check {
+    port               = var.health_check_parameters.port
+    port_specification = var.health_check_parameters.port_specification
+    proxy_header       = var.health_check_parameters.proxy_header
+    request_path       = var.health_check_parameters.request_path
+  }
+
+  timeout_sec         = var.health_check_parameters.timeout_sec
+  unhealthy_threshold = var.health_check_parameters.unhealthy_threshold
+}
+
+resource "google_compute_backend_service" "lb" {
+  name                            = var.backend_service_parameters.name
+  connection_draining_timeout_sec = var.backend_service_parameters.connection_draining_timeout_sec
+  health_checks                   = [google_compute_health_check.lb.id]
+  load_balancing_scheme           = var.backend_service_parameters.load_balancing_scheme
+  port_name                       = var.backend_service_parameters.port_name
+  protocol                        = var.backend_service_parameters.protocol
+  session_affinity                = var.backend_service_parameters.session_affinity
+  timeout_sec                     = var.backend_service_parameters.timeout_sec
+
+  backend {
+    group           = google_compute_instance_group.app.id
+    balancing_mode  = var.backend_service_parameters.balancing_mode
+    capacity_scaler = var.backend_service_parameters.capacity_scaler
+  }
+}
+
+resource "google_compute_url_map" "lb" {
+  name            = var.url_map_name
+  default_service = google_compute_backend_service.lb.id
+}
+
+resource "google_compute_target_http_proxy" "lb" {
+  name    = var.target_http_proxy_name
+  url_map = google_compute_url_map.lb.id
+}
+
+resource "google_compute_global_forwarding_rule" "default" {
+  name                  = var.global_forwarding_rule_parameters.name
+  ip_protocol           = var.global_forwarding_rule_parameters.ip_protocol
+  load_balancing_scheme = var.global_forwarding_rule_parameters.load_balancing_scheme
+  port_range            = var.global_forwarding_rule_parameters.port_range
+  target                = google_compute_target_http_proxy.lb.id
+  ip_address            = google_compute_global_address.lb.id
+}

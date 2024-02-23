@@ -68,3 +68,61 @@ variable "health_check_firewall_parameters" {
     allow_protocol = string # Protocol for the allowed traffic
   })
 }
+
+variable "global_address_parameters" {
+  description = "Parameters for the global address"
+  type = object({
+    name       = string # Name of the global address
+    ip_version = string # IP version for the global address
+  })
+}
+
+variable "health_check_parameters" {
+  description = "Parameters for the health check"
+  type = object({
+    name               = string # Name of the health check
+    check_interval_sec = number # Check interval in seconds
+    healthy_threshold  = number # Healthy threshold
+    port               = number # Port for the health check
+    port_specification = string # Port specification (e.g., "USE_FIXED_PORT")
+    proxy_header       = string # Proxy header (e.g., "NONE")
+    request_path       = string # Request path (e.g., "/")
+    timeout_sec         = number # Timeout in seconds
+    unhealthy_threshold = number # Unhealthy threshold
+  })
+}
+
+variable "backend_service_parameters" {
+  description = "Parameters for the backend service"
+  type = object({
+    name                            = string # Name of the backend service
+    connection_draining_timeout_sec = number # Connection draining timeout in seconds
+    load_balancing_scheme           = string # Load balancing scheme
+    port_name                       = string # Port name
+    protocol                        = string # Protocol (e.g., HTTP)
+    session_affinity                = string # Session affinity (e.g., NONE)
+    timeout_sec                     = number # Timeout in seconds
+    balancing_mode  = string # Balancing mode
+    capacity_scaler = number # Capacity scaler
+  })
+}
+
+variable "url_map_name" {
+  type        = string
+  description = "Name of the URL map"
+}
+
+variable "target_http_proxy_name" {
+  type        = string
+  description = "Name of the target HTTP proxy"
+}
+
+variable "global_forwarding_rule_parameters" {
+  description = "Parameters for the global forwarding rule"
+  type = object({
+    name                  = string # Name of the forwarding rule
+    ip_protocol           = string # IP protocol (e.g., "TCP" or "UDP")
+    load_balancing_scheme = string # Load balancing scheme ("INTERNAL" or "EXTERNAL")
+    port_range            = string # Port range (e.g., "80-80")
+  })
+}

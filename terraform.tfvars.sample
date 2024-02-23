@@ -41,3 +41,37 @@ health_check_firewall_parameters = {
   allow_ports = 
   allow_protocol = 
 }
+global_address_parameters = {
+  name       = 
+  ip_version = 
+}
+health_check_parameters = {
+  name = 
+  check_interval_sec = 
+  healthy_threshold = 
+  port = 
+  port_specification = 
+  proxy_header = 
+  request_path = 
+  timeout_sec = 
+  unhealthy_threshold = 
+}
+backend_service_parameters = {
+  name                            = 
+  connection_draining_timeout_sec = 
+  load_balancing_scheme           = 
+  port_name                       = 
+  protocol                        = 
+  session_affinity                = 
+  timeout_sec                     = 
+  balancing_mode  = 
+  capacity_scaler = 
+}
+url_map_name = 
+target_http_proxy_name = 
+global_forwarding_rule_parameters = {
+  name                  = 
+  ip_protocol           = 
+  load_balancing_scheme = 
+  port_range            = 
+}
