@@ -34,5 +34,5 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-.terraform.lock.hcl
+# gcp creds
 key.json

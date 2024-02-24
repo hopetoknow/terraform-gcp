@@ -75,3 +75,12 @@ global_forwarding_rule_parameters = {
   load_balancing_scheme = 
   port_range            = 
 }
+aws_parameters = {
+  provider_region     = 
+  provider_access_key = 
+  provider_secret_key = 
+  zone_name           = 
+  record_name         = 
+  record_type         = 
+  record_ttl          = 
+}

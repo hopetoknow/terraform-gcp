@@ -137,3 +137,11 @@ resource "google_compute_global_forwarding_rule" "default" {
   target                = google_compute_target_http_proxy.lb.id
   ip_address            = google_compute_global_address.lb.id
 }
+
+resource "aws_route53_record" "my_dns_record" {
+  zone_id = data.aws_route53_zone.primary.zone_id
+  name    = var.aws_parameters.record_name
+  type    = var.aws_parameters.record_type
+  ttl     = var.aws_parameters.record_ttl
+  records = [google_compute_instance.app.network_interface.0.access_config.0.nat_ip]
+}

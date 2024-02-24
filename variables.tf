@@ -126,3 +126,15 @@ variable "global_forwarding_rule_parameters" {
     port_range            = string # Port range (e.g., "80-80")
   })
 }
+
+variable "aws_parameters" {
+  type = object({
+    provider_region     = string # AWS region where the provider will operate        
+    provider_access_key = string # AWS access key ID
+    provider_secret_key = string # AWS secret access key
+    zone_name           = string # The name of the hosted zone
+    record_name         = string #The name of the record
+    record_type         = string # The record type
+    record_ttl          = number # The TTL of the record
+  })
+}
