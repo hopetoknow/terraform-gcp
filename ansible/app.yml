@@ -1,0 +1,5 @@
+- name: Install and confiure nginx for app, allow traffic
+  hosts: all
+  roles:
+    - role: nginx-core
+    - role: nginx-app

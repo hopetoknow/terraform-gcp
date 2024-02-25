@@ -1,0 +1,1 @@
+This role named nginx-app is used for configuring nginx as an application server

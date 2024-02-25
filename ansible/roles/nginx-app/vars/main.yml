@@ -1,0 +1,4 @@
+nginx_port: 80
+user: "www-data"
+log_dir: /var/log/nginx
+connection_number: 768

@@ -1,0 +1,10 @@
+user {{ user }};
+error_log {{ log_dir }}/error.log;
+
+events {
+    worker_connections {{ connection_number }};
+}
+
+http {
+    include /etc/nginx/sites-enabled/*;
+}
