@@ -1,0 +1,23 @@
+- name: Install nginx and UFW packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  loop: "{{ packages }}"
+
+- name: Make sure a service unit is running
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: Allow traffic
+  community.general.ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  loop: "{{ ports }}"
+
+- name: Enable UFW
+  community.general.ufw:
+    state: enabled

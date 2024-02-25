@@ -1,0 +1,2 @@
+packages: [nginx=1.18.0-6ubuntu14.4, ufw=0.36.1-4ubuntu0.1]
+ports: [22, 80]
