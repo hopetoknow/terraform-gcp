@@ -23,17 +23,17 @@ resource "google_compute_instance" "app" {
   provisioner "remote-exec" {
     connection {
       type        = var.instance_parameters.connection_type
-      user = var.instance_parameters.connection_user
+      user        = var.instance_parameters.connection_user
       private_key = file(var.instance_parameters.private_ssh_key_file_path)
-      host     = self.network_interface.0.access_config.0.nat_ip
+      host        = self.network_interface.0.access_config.0.nat_ip
     }
 
     script = "scripts/wait_for_instance.sh"
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_SSH_ARGS='-o StrictHostKeyChecking=no' ansible-playbook -i '${google_compute_instance.app.network_interface.0.access_config.0.nat_ip},' app.yml --private-key=${var.instance_parameters.private_ssh_key_file_path}"
-    working_dir = "${path.module}/ansible" 
+    command     = "ANSIBLE_SSH_ARGS='-o StrictHostKeyChecking=no' ansible-playbook -i '${google_compute_instance.app.network_interface.0.access_config.0.nat_ip},' app.yml --private-key=${var.instance_parameters.private_ssh_key_file_path}"
+    working_dir = "${path.module}/ansible"
   }
 }
 
@@ -74,7 +74,7 @@ resource "google_compute_firewall" "health_check" {
   priority      = var.health_check_firewall_parameters.priority
   source_ranges = var.health_check_firewall_parameters.source_ranges
   target_tags   = var.health_check_firewall_parameters.target_tags
-  
+
   allow {
     ports    = var.health_check_firewall_parameters.allow_ports
     protocol = var.health_check_firewall_parameters.allow_protocol
